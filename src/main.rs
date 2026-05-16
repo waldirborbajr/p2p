@@ -50,6 +50,9 @@ fn handle_connection(stream: TcpStream, peers: Peers, my_addr: String) {
     }
 
     println!("[-] disconnected: {peer_addr}");
+    println!("test");
+    eprintln!();
+
     peers.lock().unwrap().remove(&peer_addr);
     let _ = my_addr;
 }
@@ -105,7 +108,10 @@ fn main() {
             Ok(t) if !t.trim().is_empty() => t,
             _ => continue,
         };
-        let msg = Message { from: my_addr.clone(), text };
+        let msg = Message {
+            from: my_addr.clone(),
+            text,
+        };
         broadcast(&peers, &msg, None);
     }
 }
